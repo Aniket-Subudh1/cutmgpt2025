@@ -24,8 +24,8 @@ export default function Preloader() {
 
     // Smooth progress animation
     progressInterval = setInterval(() => {
-      setProgress(prev => Math.min(prev + Math.random() * 6 + 1, 100));
-    }, 80);
+      setProgress(prev => Math.min(prev + Math.random() * 4 + 2, 100));
+    }, 60);
 
     // Step progression
     const progressSteps = () => {
@@ -54,71 +54,67 @@ export default function Preloader() {
   const CurrentIcon = loadingSteps[currentStep]?.icon || Sparkles;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      {/* Animated background glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,200,0.1),transparent_70%)] animate-pulse"></div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-yellow-50 via-orange-50 to-white">
+      
+      {/* Subtle animated background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,191,36,0.1),transparent_70%)] animate-pulse"></div>
+      
+      {/* Floating background elements */}
+      <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-yellow-200/20 rounded-full blur-xl animate-float"></div>
+      <div className="absolute bottom-1/4 right-1/3 w-24 h-24 bg-orange-200/20 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
 
       <div className="relative z-10 max-w-sm w-full px-6 text-center">
         
-        {/* Glassmorphic container */}
-        <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-8 shadow-2xl">
+        {/* Main glassmorphic container */}
+        <div className="backdrop-blur-xl bg-white/40 border border-white/50 rounded-3xl p-8 shadow-2xl shadow-yellow-500/10">
           
-          {/* Animated Logo */}
-          <div className="relative w-24 h-24 mx-auto mb-6">
-            <div className="absolute inset-0 border-4 border-teal-400/30 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-teal-500 border-t-transparent rounded-full animate-spin-slow"></div>
-            <div className="absolute inset-3 bg-gradient-to-br from-teal-500 to-teal-700 rounded-full flex items-center justify-center shadow-lg">
-              <Image src="./logo.svg" width={30} height={30} alt="CUTM" />
+          {/* Logo container */}
+          <div className="relative w-20 h-20 mx-auto mb-6">
+            {/* Outer rotating ring */}
+            <div className="absolute inset-0 border-2 border-yellow-300/40 rounded-full"></div>
+            <div className="absolute inset-0 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin-slow"></div>
+            
+            {/* Logo */}
+            <div className="absolute inset-2 flex items-center justify-center">
+              <Image src="./logo.svg" width={32} height={32} alt="CUTM" className="filter drop-shadow-sm" />
             </div>
-            <div className="absolute -top-3 -right-3 w-10 h-10 bg-gray-900 border border-teal-500 rounded-full flex items-center justify-center shadow-lg animate-float">
-              <CurrentIcon className="w-5 h-5 text-teal-400" />
+            
+            {/* Floating icon */}
+            <div className="absolute -top-2 -right-2 w-8 h-8 backdrop-blur-md bg-white/30 border border-yellow-300/50 rounded-full flex items-center justify-center shadow-lg animate-float">
+              <CurrentIcon className="w-4 h-4 text-yellow-600" />
             </div>
           </div>
 
-          {/* Title & Info */}
-          <h1 className="text-2xl font-bold text-white mb-1 tracking-wide">CUTM-GPT</h1>
-          <p className="text-gray-300 text-sm mb-1">AI Assistant</p>
-          <p className="text-gray-500 text-xs mb-6">Centurion University of Technology and Management</p>
+          {/* Title */}
+          <h1 className="text-2xl font-bold text-yellow-700 mb-1 tracking-wide">CUTM-GPT</h1>
+          <p className="text-yellow-600 text-sm mb-1">AI Assistant</p>
+          <p className="text-yellow-500 text-xs mb-6">Centurion University</p>
 
           {/* Progress Bar */}
-          <div className="w-full bg-gray-700/40 rounded-full h-2 overflow-hidden mb-3">
+          <div className="w-full bg-yellow-100/60 backdrop-blur-sm rounded-full h-2 overflow-hidden mb-4 border border-yellow-200/50">
             <div
-              className="h-full bg-gradient-to-r from-teal-400 to-teal-600 transition-all duration-300 ease-out"
+              className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 transition-all duration-300 ease-out rounded-full"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
 
-          {/* Step text */}
-          <div className="flex items-center justify-center space-x-2 text-gray-300 text-sm mb-4">
-            <CurrentIcon className="w-4 h-4 text-teal-400 animate-pulse" />
-            <span>{loadingSteps[currentStep]?.text || "Initializing..."}</span>
+          {/* Step indicator */}
+          <div className="flex items-center justify-center space-x-2 text-yellow-600 text-sm mb-4">
+            <CurrentIcon className="w-4 h-4 text-yellow-500 animate-pulse" />
+            <span className="font-medium">{loadingSteps[currentStep]?.text || "Initializing..."}</span>
           </div>
 
           {/* Animated dots */}
-          <div className="flex justify-center space-x-1 mb-4">
-            <span className="w-2 h-2 bg-teal-400 rounded-full animate-bounce"></span>
-            <span className="w-2 h-2 bg-teal-400 rounded-full animate-bounce delay-100"></span>
-            <span className="w-2 h-2 bg-teal-400 rounded-full animate-bounce delay-200"></span>
+          <div className="flex justify-center space-x-1.5 mb-4">
+            <span className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-bounce"></span>
+            <span className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></span>
+            <span className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
           </div>
 
           {/* Version info */}
-          <p className="text-xs text-gray-500">Version 2.0 • Powered by Advanced AI</p>
+          <p className="text-xs text-yellow-500/80">Powered by Advanced AI</p>
         </div>
       </div>
-
-      {/* Custom animations */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-5px); }
-        }
-        .animate-float {
-          animation: float 2s ease-in-out infinite;
-        }
-        .animate-spin-slow {
-          animation: spin 4s linear infinite;
-        }
-      `}</style>
     </div>
   );
 }

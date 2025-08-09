@@ -48,25 +48,39 @@ export default function ChatWindow() {
   const handleQuickPrompt = (prompt: string) => { setInput(prompt); inputRef.current?.focus(); };
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-b from-yellow-50 to-white">
+    <div className="h-full flex flex-col bg-gradient-to-br from-yellow-50 via-orange-50 to-white relative overflow-hidden">
+      
+      {/* Subtle background effects */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-200/10 rounded-full blur-3xl animate-float"></div>
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-orange-200/10 rounded-full blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
       
       {/* Header */}
-      <div className="backdrop-blur-xl bg-white/60 border-b border-yellow-200 shadow-sm px-4 md:px-6 py-4 sticky top-0 z-10">
+      <div className="backdrop-blur-xl bg-white/60 border-b border-white/30 shadow-sm px-4 md:px-6 py-4 sticky top-0 z-10 relative">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Image src="./logo.svg" width={40} height={40} alt="logo" />
+            <div className="relative">
+              <Image src="./logo.svg" width={40} height={40} alt="logo" className="filter drop-shadow-sm" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
+            </div>
             <div>
               <h2 className="text-sm font-bold text-yellow-700">CUTM-GPT</h2>
-              <p className="text-xs text-yellow-500">Powered by CUTM AI</p>
+              <p className="text-xs text-yellow-600">Powered by CUTM AI</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             {messages.length > 0 && (
-              <button onClick={startNewChat} className="p-2 rounded-lg hover:bg-yellow-100 transition">
-                <RefreshCw className="w-4 h-4 text-yellow-600" />
+              <button 
+                onClick={startNewChat} 
+                className="p-2.5 rounded-xl hover:bg-white/50 backdrop-blur-sm transition-all duration-200 group border border-white/20"
+                title="New Chat"
+              >
+                <RefreshCw className="w-4 h-4 text-yellow-600 group-hover:rotate-180 transition-transform duration-300" />
               </button>
             )}
-            <button className="p-2 rounded-lg hover:bg-yellow-100 transition">
+            <button 
+              className="p-2.5 rounded-xl hover:bg-white/50 backdrop-blur-sm transition-all duration-200 border border-white/20"
+              title="Options"
+            >
               <MoreHorizontal className="w-4 h-4 text-yellow-600" />
             </button>
           </div>
@@ -74,20 +88,32 @@ export default function ChatWindow() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 md:px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-4 md:px-6 py-6 custom-scrollbar">
         <div className="max-w-4xl mx-auto space-y-6">
           
           {showWelcome && messages.length === 0 && (
-            <div className="text-center mb-8 animate-fade-in">
-              <div className="flex justify-center mb-4">
-                <Image src="./logo.svg" width={80} height={40} alt="logo" />
+            <div className="text-center mb-8 animate-fade-in-up">
+              <div className="flex justify-center mb-6">
+                <div className="relative">
+                  <div className="w-20 h-20 backdrop-blur-md bg-white/40 border border-white/50 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Image src="./logo.svg" width={40} height={40} alt="logo" className="filter drop-shadow-sm" />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 backdrop-blur-md bg-white/30 border border-yellow-300/50 rounded-full flex items-center justify-center shadow-lg animate-float">
+                    <Sparkles className="w-4 h-4 text-yellow-600" />
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-yellow-700">Welcome to CUTM-GPT</h3>
-              <p className="text-yellow-600 mb-6 max-w-md mx-auto">Ask me anything about programs, admissions, facilities, or campus life.</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-yellow-700 mb-2">Welcome to CUTM-GPT</h3>
+              <p className="text-yellow-600 mb-8 max-w-md mx-auto leading-relaxed">Your intelligent AI assistant for programs, admissions, facilities, and campus life at Centurion University.</p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
                 {quickPrompts.map((prompt, i) => (
-                  <button key={i} onClick={() => handleQuickPrompt(prompt)} className="p-4 text-left bg-white/50 backdrop-blur-xl border border-yellow-200 rounded-xl hover:border-yellow-400 hover:bg-yellow-50 transition-all">
-                    <p className="text-sm text-yellow-700">{prompt}</p>
+                  <button 
+                    key={i} 
+                    onClick={() => handleQuickPrompt(prompt)} 
+                    className="group p-4 text-left backdrop-blur-xl bg-white/40 border border-white/50 rounded-2xl hover:bg-white/60 hover:border-white/70 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                  >
+                    <p className="text-sm text-yellow-700 font-medium group-hover:text-yellow-800 transition-colors">{prompt}</p>
                   </button>
                 ))}
               </div>
@@ -99,15 +125,15 @@ export default function ChatWindow() {
           ))}
 
           {loading && (
-            <div className="flex justify-start animate-fade-in">
-              <div className="bg-white/50 backdrop-blur-xl border border-yellow-200 rounded-2xl px-4 py-3 shadow">
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-6 h-6 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center">
-                    <Sparkles className="w-3 h-3 text-white" />
+            <div className="flex justify-start animate-slide-in-up">
+              <div className="backdrop-blur-xl bg-white/50 border border-white/50 rounded-2xl px-5 py-4 shadow-lg">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-7 h-7 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full flex items-center justify-center shadow-sm">
+                    <Sparkles className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-sm font-medium text-yellow-700">CUTM-GPT</span>
+                  <span className="text-sm font-semibold text-yellow-700">CUTM-GPT</span>
                 </div>
-                <div className="flex space-x-1">
+                <div className="flex space-x-1.5">
                   <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                   <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
@@ -120,7 +146,7 @@ export default function ChatWindow() {
       </div>
 
       {/* Input */}
-      <div className="backdrop-blur-xl bg-white/70 border-t border-yellow-200 px-4 md:px-6 py-4">
+      <div className="backdrop-blur-xl bg-white/70 border-t border-white/40 px-4 md:px-6 py-4 relative">
         <div className="max-w-4xl mx-auto flex items-end space-x-3">
           <div className="flex-1 relative">
             <textarea
@@ -128,7 +154,7 @@ export default function ChatWindow() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyPress}
-              className="w-full px-4 py-3 pr-12 bg-white/50 backdrop-blur-xl border border-yellow-200 rounded-xl focus:ring-2 focus:ring-yellow-400 resize-none"
+              className="w-full px-4 py-3 pr-12 backdrop-blur-xl bg-white/60 border border-white/50 rounded-2xl focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50 resize-none placeholder-yellow-500/70 text-yellow-800 transition-all duration-200"
               placeholder="Ask me anything..."
               disabled={loading}
               maxLength={2000}
@@ -139,18 +165,51 @@ export default function ChatWindow() {
                 target.style.height = Math.min(target.scrollHeight, 120) + 'px';
               }}
             />
-            <div className="absolute right-3 bottom-3 text-xs text-yellow-500">{input.length}/2000</div>
+            <div className="absolute right-3 bottom-3 text-xs text-yellow-500/70 font-medium">{input.length}/2000</div>
           </div>
-          <button onClick={sendMessage} disabled={loading || !input.trim()} className="w-12 h-12 bg-yellow-400 hover:bg-yellow-500 text-white rounded-xl flex items-center justify-center">
-            {loading ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div> : <Send className="w-4 h-4" />}
+          <button 
+            onClick={sendMessage} 
+            disabled={loading || !input.trim()} 
+            className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 disabled:from-gray-300 disabled:to-gray-400 text-white rounded-2xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl disabled:hover:scale-100"
+          >
+            {loading ? 
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div> : 
+              <Send className="w-4 h-4" />
+            }
           </button>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="bg-yellow-50 px-4 md:px-6 py-3 border-t border-yellow-200 text-center text-xs text-yellow-600">
-        Crafted with excellence by <span className="font-semibold">DevSomeware</span>
+      <div className="backdrop-blur-xl bg-white/50 px-4 md:px-6 py-3 border-t border-white/30 text-center text-xs text-yellow-600">
+        Crafted with excellence by <span className="font-semibold text-yellow-700">DevSomeware</span>
       </div>
+
+      {/* Custom styles */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          33% { transform: translateY(-10px) rotate(1deg); }
+          66% { transform: translateY(-5px) rotate(-1deg); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-fade-in-up {
+          animation: fadeInUp 0.8s ease-out;
+        }
+        .animate-slide-in-up {
+          animation: slideInUp 0.4s ease-out;
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }

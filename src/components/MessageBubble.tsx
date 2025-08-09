@@ -41,7 +41,7 @@ export default function MessageBubble({ role, content, timestamp, isTyping = fal
         } else {
           clearInterval(timer);
         }
-      }, 20);
+      }, 15);
 
       return () => clearInterval(timer);
     } else {
@@ -101,7 +101,7 @@ export default function MessageBubble({ role, content, timestamp, isTyping = fal
               return (
                 <h3
                   key={lineIndex}
-                  className="text-lg font-bold text-yellow-800 mb-3 mt-4 first:mt-0 border-b border-yellow-200 pb-2"
+                  className="text-lg font-bold text-yellow-800 mb-3 mt-4 first:mt-0 border-b border-yellow-200/50 pb-2"
                 >
                   {parseMarkdown(headingText)}
                 </h3>
@@ -125,7 +125,7 @@ export default function MessageBubble({ role, content, timestamp, isTyping = fal
               return (
                 <div key={lineIndex} className="mb-3">
                   <div className="flex items-start space-x-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-yellow-100 text-yellow-800 rounded-full flex items-center justify-center text-xs font-semibold mt-0.5">
+                    <span className="flex-shrink-0 w-6 h-6 bg-yellow-100/80 backdrop-blur-sm text-yellow-800 rounded-full flex items-center justify-center text-xs font-semibold mt-0.5 border border-yellow-200/50">
                       {number}
                     </span>
                     <p className="text-sm text-gray-700 leading-relaxed">{parseMarkdown(listText.trim())}</p>
@@ -151,7 +151,7 @@ export default function MessageBubble({ role, content, timestamp, isTyping = fal
               return (
                 <div
                   key={lineIndex}
-                  className="mb-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-400"
+                  className="mb-4 p-4 backdrop-blur-md bg-yellow-50/60 rounded-xl border border-yellow-200/50 shadow-sm"
                 >
                   <p className="text-sm">
                     <span className="font-semibold text-yellow-900">{label.trim()}:</span>
@@ -181,14 +181,14 @@ export default function MessageBubble({ role, content, timestamp, isTyping = fal
       <div
         className={`max-w-[90%] md:max-w-2xl lg:max-w-4xl group ${
           isUser
-            ? "bg-gradient-to-br from-yellow-400 to-yellow-500 text-white rounded-2xl rounded-br-md px-4 py-3 shadow-md"
-            : "bg-white/70 backdrop-blur-xl border border-yellow-200 rounded-2xl rounded-bl-md px-5 py-4 shadow-sm hover:shadow-md transition-shadow duration-200"
+            ? "bg-gradient-to-br from-yellow-400 to-orange-400 text-white rounded-2xl rounded-br-md px-4 py-3 shadow-lg"
+            : "backdrop-blur-xl bg-white/60 border border-white/50 rounded-2xl rounded-bl-md px-5 py-4 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white/70"
         }`}
       >
         {!isUser && (
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <div className="w-7 h-7 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center shadow-sm">
+              <div className="w-7 h-7 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full flex items-center justify-center shadow-sm">
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -198,7 +198,7 @@ export default function MessageBubble({ role, content, timestamp, isTyping = fal
             </div>
             <button
               onClick={copyToClipboard}
-              className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-1.5 hover:bg-yellow-100 rounded-lg text-yellow-500 hover:text-yellow-700"
+              className="opacity-0 group-hover:opacity-100 transition-all duration-200 p-1.5 hover:bg-white/50 rounded-lg text-yellow-500 hover:text-yellow-700 backdrop-blur-sm"
               title="Copy message"
             >
               {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
@@ -212,7 +212,7 @@ export default function MessageBubble({ role, content, timestamp, isTyping = fal
               <div className="flex-1">
                 <p className="text-sm leading-relaxed">{displayedContent}</p>
               </div>
-              <div className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center">
+              <div className="w-7 h-7 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
                 <User className="w-4 h-4 text-white" />
               </div>
             </div>
