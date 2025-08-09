@@ -27,7 +27,7 @@ export default function MessageBubble({ role, content, isTyping = false }: Messa
         } else {
           clearInterval(timer);
         }
-      }, 20);
+      }, 15);
 
       return () => clearInterval(timer);
     } else {
@@ -35,58 +35,100 @@ export default function MessageBubble({ role, content, isTyping = false }: Messa
     }
   }, [content, isUser, isTyping]);
 
-  // Sanitize content - remove any HTML tags and dangerous content
+  // Sanitize and format content
   const sanitizeContent = (text: string) => {
     return text
-      .replace(/<[^>]*>/g, '') // Remove HTML tags
-      .replace(/javascript:/gi, '') // Remove javascript: links
-      .replace(/on\w+\s*=/gi, '') // Remove event handlers
+      .replace(/<[^>]*>/g, '')
+      .replace(/javascript:/gi, '')
+      .replace(/on\w+\s*=/gi, '')
       .trim();
   };
 
-  const sanitizedContent = sanitizeContent(displayedContent);
+  // Format content with bullet points and sections
+  const formatContent = (text: string) => {
+    const sanitized = sanitizeContent(text);
+    
+    // Split into paragraphs and format
+    const lines = sanitized.split('\n').filter(line => line.trim());
+    
+    return lines.map((line, index) => {
+      // Check if it's a header (contains ** or is all caps)
+      if (line.includes('**') || (line.length < 50 && line === line.toUpperCase())) {
+        return (
+          <div key={index} className="font-semibold text-gray-800 mb-2 text-sm">
+            {line.replace(/\*\*/g, '')}
+          </div>
+        );
+      }
+      
+      // Check if it's a bullet point
+      if (line.trim().startsWith('•') || line.trim().startsWith('-') || line.trim().startsWith('*')) {
+        return (
+          <div key={index} className="flex items-start space-x-2 mb-2">
+            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <span className="text-sm text-gray-700 leading-relaxed">
+              {line.replace(/^[•\-*]\s*/, '')}
+            </span>
+          </div>
+        );
+      }
+      
+      // Regular paragraph
+      return (
+        <p key={index} className="text-sm text-gray-700 leading-relaxed mb-2">
+          {line}
+        </p>
+      );
+    });
+  };
 
   return (
     <div
-      className={`mb-4 animate-slide-in-up ${
+      className={`mb-4 transition-all duration-300 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-      } transition-all duration-300 ${
+      } ${
         isUser ? 'flex justify-end' : 'flex justify-start'
       }`}
     >
       <div
-        className={`max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl p-4 rounded-2xl shadow-lg backdrop-blur-sm border border-opacity-20 transform hover:scale-105 transition-all duration-200 ${
+        className={`max-w-md lg:max-w-lg xl:max-w-xl rounded-2xl shadow-sm transition-all duration-200 ${
           isUser
-            ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-800 border-yellow-300 rounded-br-sm'
-            : 'bg-white/80 text-gray-800 border-gray-200 rounded-bl-sm'
+            ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-3 rounded-br-sm'
+            : 'bg-gray-100/80 backdrop-blur-sm text-gray-800 px-4 py-3 rounded-bl-sm border border-gray-200/50'
         }`}
       >
         {!isUser && (
-          <div className="flex items-center mb-2">
-            <div className="w-6 h-6 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center mr-2">
+          <div className="flex items-center mb-3">
+            <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mr-2">
               <span className="text-xs font-bold text-white">AI</span>
             </div>
             <span className="text-xs font-medium text-gray-600">CutMGPT Assistant</span>
+            <div className="ml-auto text-xs text-gray-400">
+              {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
           </div>
         )}
         
-        <div className="whitespace-pre-wrap break-words leading-relaxed">
-          {sanitizedContent}
-          {!isUser && isTyping && (
-            <span className="inline-block w-2 h-5 bg-yellow-500 ml-1 animate-pulse"></span>
+        <div className={`${isUser ? 'text-white' : 'text-gray-800'}`}>
+          {isUser ? (
+            <p className="text-sm leading-relaxed">{displayedContent}</p>
+          ) : (
+            <div className="space-y-1">
+              {typeof displayedContent === 'string' && displayedContent.includes('\n') ? (
+                formatContent(displayedContent)
+              ) : (
+                <p className="text-sm text-gray-700 leading-relaxed">{displayedContent}</p>
+              )}
+              {!isUser && isTyping && (
+                <span className="inline-block w-2 h-4 bg-blue-500 ml-1 animate-pulse"></span>
+              )}
+            </div>
           )}
         </div>
 
-        {!isUser && !isTyping && (
-          <div className="mt-2 flex items-center justify-between">
-            <div className="flex space-x-1">
-              <button className="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              </button>
-            </div>
-            <span className="text-xs text-gray-400">
+        {isUser && (
+          <div className="mt-2 text-right">
+            <span className="text-xs text-blue-100 opacity-75">
               {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </span>
           </div>
