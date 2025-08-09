@@ -2,7 +2,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "CutMGPT - AI Assistant | Centurion University",
+  title: "CUTM-GPT | Centurion University",
   description: "Intelligent AI assistant powered by Centurion University of Management and Technology",
   keywords: "AI, chatbot, Centurion University, education, technology",
   authors: [{ name: "Devsomeware" }],
