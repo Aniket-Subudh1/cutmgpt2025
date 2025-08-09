@@ -103,7 +103,7 @@ export default function MessageBubble({ role, content, isTyping = false }: Messa
               <span className="text-xs font-bold text-white">AI</span>
             </div>
             <div className="flex-1">
-              <span className="text-sm font-semibold text-yellow-900">CutMGPT Assistant</span>
+              <span className="text-sm font-semibold text-yellow-900">CUTM-GPT</span>
               <div className="text-xs text-yellow-700 font-medium">
                 {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </div>

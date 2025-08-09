@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import ChatWindow from "@/components/ChatWindow";
 import Preloader from "@/components/Preloader";
@@ -33,13 +33,15 @@ export default function HomePage() {
               {/* Logo */}
               <div className="flex items-center space-x-4 animate-fade-in-up">
                 <div className="relative">
-                  <div className="w-14 h-14 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl flex items-center justify-center shadow-xl transform-gpu">
-                    <span className="text-white font-bold text-lg">CU</span>
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
+                 <Image
+                  src = "./logo.svg"
+                  width={40}
+                  height={50}
+                  alt="none"
+                 />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-gradient">CutMGPT Assistant</h1>
+                  <h1 className="text-2xl font-bold text-gradient">CUTM-GPT</h1>
                   <p className="text-sm text-yellow-700 font-medium">Centurion University AI</p>
                 </div>
               </div>
@@ -61,7 +63,7 @@ export default function HomePage() {
             {/* Welcome Section */}
             <div className="text-center mb-8 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
               <h2 className="text-4xl lg:text-6xl font-bold text-gradient mb-4">
-                Welcome to CutMGPT
+                Welcome to CUTM-GPT
               </h2>
               <p className="text-xl lg:text-2xl text-yellow-800 font-medium mb-2">
                 Your Intelligent AI Assistant

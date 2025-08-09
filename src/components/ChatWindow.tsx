@@ -99,7 +99,7 @@ export default function ChatWindow() {
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-yellow-900">CutMGPT Assistant</h3>
+                <h3 className="text-lg font-bold text-yellow-900">CUTM-GPT</h3>
                 <p className="text-sm text-yellow-700">Always here to help</p>
               </div>
             </div>

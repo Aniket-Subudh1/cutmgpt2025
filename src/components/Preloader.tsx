@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import Image from "next/image";
 export default function Preloader() {
   const [isVisible, setIsVisible] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -52,8 +52,12 @@ export default function Preloader() {
             {/* Inner glowing circle */}
             <div className="absolute inset-6 bg-white rounded-full flex items-center justify-center shadow-2xl animate-pulse-custom glass-strong">
               <div className="text-center">
-                <div className="text-2xl font-bold text-gradient mb-1">CU</div>
-                <div className="text-xs font-semibold text-yellow-600">AI</div>
+               <Image
+                                 src = "./logo.svg"
+                                 width={40}
+                                 height={50}
+                                 alt="none"
+                                />
               </div>
             </div>
 
