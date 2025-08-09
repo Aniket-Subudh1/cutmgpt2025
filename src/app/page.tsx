@@ -17,85 +17,78 @@ export default function HomePage() {
   return (
     <>
       {showPreloader && <Preloader />}
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
-        {/* Clean Header */}
-        <header className="bg-white/70 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="flex items-center justify-between h-16">
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-10 left-10 w-72 h-72 bg-white/10 rounded-full animate-float"></div>
+          <div className="absolute top-32 right-20 w-96 h-96 bg-yellow-300/20 rounded-full animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-20 left-32 w-80 h-80 bg-white/15 rounded-full animate-float" style={{animationDelay: '4s'}}></div>
+          <div className="absolute bottom-32 right-10 w-64 h-64 bg-yellow-400/25 rounded-full animate-float" style={{animationDelay: '1s'}}></div>
+        </div>
+
+        {/* Header */}
+        <header className="relative z-10 glass-strong border-b border-white/30 sticky top-0">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex items-center justify-between h-20">
               {/* Logo */}
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-sm">CU</span>
+              <div className="flex items-center space-x-4 animate-fade-in-up">
+                <div className="relative">
+                  <div className="w-14 h-14 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl flex items-center justify-center shadow-xl transform-gpu">
+                    <span className="text-white font-bold text-lg">CU</span>
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-800">CutMGPT Assistant</h1>
-                  <p className="text-xs text-gray-500">Centurion University Assistant</p>
+                  <h1 className="text-2xl font-bold text-gradient">CutMGPT Assistant</h1>
+                  <p className="text-sm text-yellow-700 font-medium">Centurion University AI</p>
                 </div>
               </div>
               
               {/* Status */}
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span>Online</span>
+              <div className="flex items-center space-x-3 text-yellow-800 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                <div className="flex items-center space-x-2 glass-subtle px-4 py-2 rounded-full">
+                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium">Online</span>
+                </div>
               </div>
             </div>
           </div>
         </header>
 
         {/* Main Content */}
-        <main className="max-w-6xl mx-auto px-6 py-8">
-          {/* Chat Interface */}
-          <div className="mb-8">
-            <ChatWindow />
-          </div>
-        </main>
-
-        {/* Clean Footer */}
-        <footer className="mt-auto">
-          <div className="max-w-6xl mx-auto px-6 py-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Feature 1 */}
-              <div className="text-center p-4 bg-white/40 backdrop-blur-md rounded-2xl border border-white/30 shadow-lg">
-                <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-500 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">Lightning Fast</h3>
-                <p className="text-sm text-gray-600">Get instant responses to your queries with our advanced AI technology.</p>
-              </div>
-
-              {/* Feature 2 */}
-              <div className="text-center p-4 bg-white/40 backdrop-blur-md rounded-2xl border border-white/30 shadow-lg">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">Reliable & Secure</h3>
-                <p className="text-sm text-gray-600">Your conversations are secure and private with enterprise-grade protection.</p>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="text-center p-4 bg-white/40 backdrop-blur-md rounded-2xl border border-white/30 shadow-lg">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">Academic Support</h3>
-                <p className="text-sm text-gray-600">Get help with your studies, research, and academic projects.</p>
-              </div>
-            </div>
-
-            {/* Developer Credit */}
-            <div className="text-center mt-6 pt-4 border-t border-gray-200/50">
-              <p className="text-sm text-gray-500">
-                Developed By: <span className="text-blue-600 font-medium">Abhi Mitra</span>
+        <main className="relative z-10 flex-1 flex items-center justify-center p-6 lg:p-8">
+          <div className="w-full max-w-6xl mx-auto">
+            {/* Welcome Section */}
+            <div className="text-center mb-8 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+              <h2 className="text-4xl lg:text-6xl font-bold text-gradient mb-4">
+                Welcome to CutMGPT
+              </h2>
+              <p className="text-xl lg:text-2xl text-yellow-800 font-medium mb-2">
+                Your Intelligent AI Assistant
+              </p>
+              <p className="text-lg text-yellow-700 max-w-2xl mx-auto">
+                Powered by Centurion University of Technology and Management
               </p>
             </div>
+
+            {/* Chat Interface */}
+            <div className="animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+              <ChatWindow />
+            </div>
+
+            
+
+
+            {/* Developer Credit */}
+            <div className="text-center mt-12 animate-fade-in-up" style={{animationDelay: '1s'}}>
+              <div className="glass-subtle rounded-2xl p-6 inline-block">
+                <p className="text-yellow-800 font-medium">
+                  Crafted with excellence by DevSomeware 
+                </p>
+              </div>
+            </div>
           </div>
-        </footer>
+        </main>
       </div>
     </>
   );
