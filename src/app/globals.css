@@ -15,6 +15,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
 }
 
 body {
@@ -24,7 +27,12 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
 }
 
 /* Enhanced Custom Scrollbar */
@@ -35,7 +43,6 @@ body {
 .custom-scrollbar::-webkit-scrollbar-track {
   background: rgba(254, 252, 232, 0.3);
   border-radius: 3px;
-  backdrop-filter: blur(10px);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -48,20 +55,11 @@ body {
   background: linear-gradient(180deg, #f59e0b, #d97706);
 }
 
-/* Smooth Animations - Performance Optimized */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
+/* Core Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 30px, 0);
   }
   to {
     opacity: 1;
@@ -72,86 +70,34 @@ body {
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translate3d(0, 15px, 0);
+    transform: translate3d(0, 20px, 0);
   }
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale3d(0.95, 0.95, 1);
-  }
-  to {
-    opacity: 1;
-    transform: scale3d(1, 1, 1);
   }
 }
 
 @keyframes float {
   0%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -10px, 0);
-  }
-}
-
-@keyframes floatSlow {
-  0%, 100% {
     transform: translate3d(0, 0, 0) rotate(0deg);
   }
   33% {
-    transform: translate3d(0, -8px, 0) rotate(1deg);
+    transform: translate3d(0, -10px, 0) rotate(1deg);
   }
   66% {
-    transform: translate3d(0, -4px, 0) rotate(-1deg);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-@keyframes bounce {
-  0%, 20%, 53%, 80%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  40%, 43% {
-    transform: translate3d(0, -8px, 0);
-  }
-  70% {
-    transform: translate3d(0, -3px, 0);
-  }
-  90% {
-    transform: translate3d(0, -1px, 0);
+    transform: translate3d(0, -5px, 0) rotate(-1deg);
   }
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 @keyframes glow {
@@ -159,58 +105,25 @@ body {
     box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
   }
   50% {
-    box-shadow: 0 0 25px rgba(251, 191, 36, 0.6), 0 0 35px rgba(251, 191, 36, 0.4);
-  }
-}
-
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+    box-shadow: 0 0 25px rgba(251, 191, 36, 0.6);
   }
 }
 
 /* Animation Classes */
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: fadeInUp 0.6s ease-out;
 }
 
 .animate-slide-in-up {
-  animation: slideInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: slideInUp 0.4s ease-out;
 }
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
 
-.animate-float-slow {
-  animation: floatSlow 8s ease-in-out infinite;
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.animate-bounce {
-  animation: bounce 1s infinite;
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
 .animate-spin-slow {
-  animation: spin 4s linear infinite;
+  animation: spin 3s linear infinite;
 }
 
 .animate-shimmer {
@@ -220,11 +133,6 @@ body {
 
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradientShift 6s ease-in-out infinite;
 }
 
 /* Focus States */
@@ -240,11 +148,10 @@ button:focus {
   color: #92400e;
 }
 
-/* Enhanced Button Hover Effects */
+/* Button Hover Effects */
 .btn-hover {
-  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.2s ease;
   transform: translateZ(0);
-  will-change: transform;
 }
 
 .btn-hover:hover {
@@ -253,22 +160,6 @@ button:focus {
 
 .btn-hover:active {
   transform: translate3d(0, 0, 0);
-  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Message Animations */
-.message-appear {
-  animation: slideInUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Enhanced Loading States */
-.loading-shimmer {
-  background: linear-gradient(90deg, 
-    rgba(251, 191, 36, 0.1) 0%, 
-    rgba(251, 191, 36, 0.3) 50%, 
-    rgba(251, 191, 36, 0.1) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
 }
 
 /* Glassmorphism Effects */
@@ -279,21 +170,96 @@ button:focus {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.glass-strong {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+/* Text Gradient Utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Responsive Design */
+/* Safe Area Support */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Mobile Optimizations */
 @media (max-width: 768px) {
-  html {
-    font-size: 14px;
+  /* Prevent zoom on input focus - Critical for mobile */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    font-size: 16px !important;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
   }
   
+  /* Better touch targets */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Optimize scrolling performance */
+  .custom-scrollbar {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  
+  /* Disable expensive animations on mobile */
+  .animate-float {
+    animation: none !important;
+  }
+  
+  /* Optimize backdrop blur for mobile performance */
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  /* Ensure fixed input doesn't interfere with viewport */
   body {
-    font-size: 14px;
+    padding-bottom: 0;
+  }
+}
+
+/* iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Fix iOS input zoom and scrolling */
+  input, textarea {
+    font-size: 16px;
+    -webkit-appearance: none;
+  }
+  
+  .ios-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Better safe area handling for iOS */
+  .safe-area-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
+  }
+}
+
+/* Android specific optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Android keyboard handling */
+  .android-keyboard-adjust {
+    height: 100vh;
+    height: calc(100vh - env(keyboard-inset-height, 0px));
   }
 }
 
@@ -308,235 +274,29 @@ button:focus {
   }
   
   .animate-float,
-  .animate-float-slow,
-  .animate-bounce,
-  .animate-spin,
   .animate-spin-slow {
     animation: none !important;
   }
 }
 
-/* High-performance transforms */
-.transform-gpu {
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-/* Print Styles */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  body {
-    background: white !important;
-    color: black !important;
-  }
-}
-
-/* Enhanced Custom Utilities */
-.text-gradient {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-warm {
-  background: linear-gradient(135deg, #fbbf24, #ea580c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Mobile Optimizations */
-@media (max-width: 640px) {
-  .mobile-optimized {
-    padding: 1rem;
-  }
-  
-  .mobile-text {
-    font-size: 0.875rem;
-    line-height: 1.5;
-  }
-  
-  /* Improved touch targets */
-  button, 
-  .btn-hover {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Touch Optimizations */
+/* Touch optimizations */
 @media (hover: none) and (pointer: coarse) {
   .btn-hover:hover {
     transform: none;
   }
   
-  .group:hover .group-hover\:opacity-100 {
-    opacity: 1;
-  }
-}
-
-/* Enhanced Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #0f0f0f;
-    --bg-secondary: #1a1a1a;
-    --text-primary: #fefce8;
-    --text-secondary: #fef3c7;
-    --accent-primary: #fbbf24;
-    --accent-secondary: #f59e0b;
-  }
-}
-
-/* Improved Performance */
-.will-change-transform {
-  will-change: transform;
-}
-
-.will-change-opacity {
-  will-change: opacity;
-}
-
-/* Browser-specific optimizations */
-@supports (backdrop-filter: blur(20px)) {
-  .backdrop-blur-fallback {
-    backdrop-filter: blur(20px);
-  }
-}
-
-@supports not (backdrop-filter: blur(20px)) {
-  .backdrop-blur-fallback {
-    background: rgba(255, 255, 255, 0.9);
-  }
-}
-
-.shadow-glass {
-  box-shadow: 
-    0 8px 32px 0 rgba(251, 191, 36, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
-}
-
-.shadow-warm {
-  box-shadow: 
-    0 10px 40px 0 rgba(251, 191, 36, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-/* Add these styles to your globals.css file */
-
-/* Mobile-first responsive improvements */
-@media (max-width: 768px) {
-  /* Ensure full viewport height on mobile */
-  body {
-    height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for better mobile support */
-    overflow: hidden;
+  .hover\:scale-105:hover {
+    transform: none;
   }
   
-  /* Prevent zoom on input focus */
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  textarea {
-    font-size: 16px !important;
+  /* Better active states for touch */
+  .active\:scale-95:active {
+    transform: scale(0.95);
   }
   
-  /* Better touch targets */
-  button {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  /* Improved scrolling performance */
-  .custom-scrollbar {
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-  
-  /* Hide animations on mobile for better performance */
-  .animate-float,
-  .animate-float-slow {
-    animation: none !important;
-  }
-  
-  /* Optimize backdrop blur for mobile */
-  .backdrop-blur-xl {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-}
-
-/* Safe area adjustments for mobile devices */
-@supports (padding: max(0px)) {
-  .safe-area-top {
-    padding-top: max(env(safe-area-inset-top), 0px);
-  }
-  
-  .safe-area-bottom {
-    padding-bottom: max(env(safe-area-inset-bottom), 0px);
-  }
-  
-  .safe-area-left {
-    padding-left: max(env(safe-area-inset-left), 0px);
-  }
-  
-  .safe-area-right {
-    padding-right: max(env(safe-area-inset-right), 0px);
-  }
-}
-
-/* Improved mobile layout */
-@media (max-width: 640px) {
-  /* Container adjustments */
-  .container {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  
-  /* Typography adjustments */
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.25rem; }
-  h4 { font-size: 1.125rem; }
-  
-  /* Reduced spacing for mobile */
-  .space-y-6 > * + * {
-    margin-top: 1rem;
-  }
-  
-  .space-y-4 > * + * {
-    margin-top: 0.75rem;
-  }
-  
-  /* Better button spacing */
-  .space-x-3 > * + * {
-    margin-left: 0.5rem;
-  }
-  
-  .space-x-2 > * + * {
-    margin-left: 0.375rem;
-  }
-}
-
-/* Landscape mobile optimizations */
-@media (max-width: 768px) and (orientation: landscape) {
-  /* Reduce header height in landscape */
-  .mobile-header {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  
-  /* Adjust welcome screen for landscape */
-  .welcome-container {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-  
-  .welcome-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+  /* Prevent double-tap zoom */
+  * {
+    touch-action: manipulation;
   }
 }
 
@@ -553,70 +313,7 @@ button:focus {
   }
 }
 
-/* iOS specific fixes */
-@supports (-webkit-touch-callout: none) {
-  /* Fix iOS input zoom */
-  input, textarea {
-    font-size: 16px;
-  }
-  
-  /* Better iOS scrolling */
-  .ios-scroll {
-    -webkit-overflow-scrolling: touch;
-    overflow-scrolling: touch;
-  }
-  
-  /* iOS safe area handling */
-  .ios-safe-bottom {
-    padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
-  }
-}
-
-/* Android specific fixes */
-@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
-  /* Android keyboard handling */
-  .android-keyboard-adjust {
-    height: 100vh;
-    height: calc(100vh - env(keyboard-inset-height, 0px));
-  }
-}
-
-/* Accessibility improvements for mobile */
-@media (max-width: 768px) {
-  /* Larger focus rings on mobile */
-  button:focus,
-  input:focus,
-  textarea:focus {
-    outline: 2px solid #fbbf24;
-    outline-offset: 2px;
-  }
-  
-  /* Better contrast for mobile readability */
-  .text-yellow-600 {
-    color: #d97706;
-  }
-  
-  .text-yellow-500 {
-    color: #f59e0b;
-  }
-}
-
-/* Reduced motion preferences for mobile */
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  .animate-bounce,
-  .animate-pulse,
-  .animate-spin {
-    animation: none !important;
-  }
-}
-
-/* Performance optimizations for mobile */
+/* Improved mobile performance */
 @media (max-width: 768px) {
   /* Reduce expensive effects */
   .backdrop-blur-xl {
@@ -632,48 +329,16 @@ button:focus {
     transform: translate3d(0, 0, 0);
     will-change: transform;
   }
-  
-  /* Simpler gradients for better performance */
-  .bg-gradient-to-br {
-    background: linear-gradient(135deg, var(--tw-gradient-from), var(--tw-gradient-to));
-  }
 }
 
-/* Mobile-specific utility classes */
-.mobile-full-height {
-  height: 100vh;
-  height: 100dvh;
-}
-
-.mobile-safe-area {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-}
-
-.mobile-keyboard-adjust {
-  height: calc(100vh - env(keyboard-inset-height, 0px));
-}
-
-/* Touch-friendly interactions */
-@media (hover: none) and (pointer: coarse) {
-  /* Remove hover effects on touch devices */
-  .hover\:scale-105:hover {
-    transform: none;
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
   }
   
-  .hover\:bg-white\/50:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-  
-  /* Better active states for touch */
-  .active\:scale-95:active {
-    transform: scale(0.95);
-  }
-  
-  /* Ensure buttons remain accessible */
-  button {
-    cursor: pointer;
+  body {
+    background: white !important;
+    color: black !important;
   }
 }
